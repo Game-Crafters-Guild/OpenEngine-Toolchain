@@ -25,7 +25,7 @@ Both pins are load-bearing; bump each only together with the engine's manifest.
 | macos-arm64 | `naga-29.0.4-macos-arm64` | 5397856 | `8312eba5c64fa2e264ad8872bbf775aadefb973112cf9b0f1ce6101be944c855` |
 | macos-arm64 | `tint-36cf1fae0-macos-arm64` | 4245256 | `fa3974be525e7abe04fd746abd74213203623fc1972a19d98f3264fda87086d2` |
 
-linux-x64 and macos-x64 have no hosted build yet. To add a host, build both tools with the recipes below, upload them to the release as `naga-29.0.4-<host>` and `tint-36cf1fae0-<host>`, and record their asset id, size and sha256 in the engine's manifest.
+linux-x64 and macos-x64 have no hosted build yet. To add a host, build both tools with the recipes below, upload them to the release as `naga-29.0.4-<host>` and `tint-36cf1fae0-<host>`, and record their size and sha256 in the engine's manifest.
 
 ## Build recipes
 
@@ -34,4 +34,4 @@ linux-x64 and macos-x64 have no hosted build yet. To add a host, build both tool
 
 ## How the engine consumes the release
 
-The engine's `Tools/ShaderCook/toolchain/manifest.json` names this repository, the release tag, and per host each asset's id, size and sha256. `python Tools/ShaderCook/toolchain/setup.py` downloads the running host's assets through the GitHub API by asset id, verifies each against its sha256, and places them in `Tools/ShaderCook/toolchain/<host>/` (gitignored), where the cook looks for them. The repository is public, so the download needs no GitHub account or token. A file that already hashes correctly is left alone, so rerunning the script is cheap.
+The engine's `Tools/ShaderCook/toolchain/manifest.json` names this repository, the release tag, and per host each asset's name, size and sha256. `python Tools/ShaderCook/toolchain/setup.py` downloads the running host's assets by name from the release's download URL (`https://github.com/Game-Crafters-Guild/OpenEngine-Toolchain/releases/download/<tag>/<asset>`), verifies each against its sha256, and places them in `Tools/ShaderCook/toolchain/<host>/` (gitignored), where the cook looks for them. The repository is public, so the download needs no GitHub account or token. A file that already hashes correctly is left alone, so rerunning the script is cheap.
